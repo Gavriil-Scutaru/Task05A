@@ -6,14 +6,15 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.example.logic.StudentConnect4Game
 
 class GameView: View {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private val colCount = 7
-    private val rowCount = 10
+//    private val colCount = 7
+//    private val rowCount = 10
 
     private var circleDiameter: Float = 0f
     private var circleSpacing: Float = 0f
@@ -28,6 +29,17 @@ class GameView: View {
         style = Paint.Style.FILL
         color = Color.WHITE
     }
+
+    var game: StudentConnect4Game = StudentConnect4Game()
+        set(value) {
+            field = value
+            // After the new value is set, make sure to recalculate sizes and then trigger a redraw
+            onSizeChanged(width, height, width, height)
+            invalidate()
+        }
+
+    private val colCount:Int get() = game.columns
+    private val rowCount:Int get() = game.rows
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
 
@@ -54,8 +66,11 @@ class GameView: View {
 
         for (row in 0 until rowCount) {
             for (col in 0 until colCount) {
-                // We will later on want to use the game data to determine this
-                val paint = noPlayerPaint
+                val paint = when (game.getToken(col, row)) {
+                    1 -> player1Paint
+                    2 -> player2Paint
+                    else -> noPlayerPaint
+                }
 
                 // Drawing circles uses the center and radius
                 val cx = circleSpacing + ((circleDiameter + circleSpacing) * col) + radius
@@ -64,8 +79,18 @@ class GameView: View {
                 canvas?.drawCircle(cx, cy, radius, paint)
             }
         }
-
-
     }
+
+    private val player1Paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = Color.RED
+    }
+
+    private val player2Paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = Color.YELLOW
+    }
+
+
 
 }
