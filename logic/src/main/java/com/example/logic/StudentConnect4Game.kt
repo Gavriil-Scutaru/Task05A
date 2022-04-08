@@ -16,6 +16,11 @@ class StudentConnect4Game (
             throw IllegalArgumentException("Player numbers start with 1")
         }
 
+        if (playerTurn == 1)
+            playerTurn = 2
+        else
+            playerTurn = 1
+
         for (row in 0 until rows) {
             // If we find an empty cell we set it with the token and return
             // The return breaks our loop so it only gets set (maximum) once

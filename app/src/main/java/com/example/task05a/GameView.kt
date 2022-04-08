@@ -56,7 +56,7 @@ class GameView: View {
 
             if (columnTouched in 0 until game.columns) {
                 // handle touch
-                game.playToken(columnTouched, 1)
+                game.playToken(columnTouched, game.playerTurn)
                 invalidate()
                 return true
             } else {
