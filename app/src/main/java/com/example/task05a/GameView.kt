@@ -55,7 +55,7 @@ class GameView: View {
             val columnTouched = ((e.x - circleSpacing * 0.5f) / (circleSpacing + circleDiameter)).toInt()
 
             if (columnTouched in 0 until game.columns) {
-                // TODO handle touch
+                // handle touch
                 game.playToken(columnTouched, 1)
                 invalidate()
                 return true
