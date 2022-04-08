@@ -16,3 +16,4 @@ rootProject.name = "Task05A"
 include ':app'
 include ':lib'
 include ':testlib'
+include ':logic'

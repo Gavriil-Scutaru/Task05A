@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation(project(":lib"))
+
+    testImplementation(project(":testlib"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.5.2")
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
