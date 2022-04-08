@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Add lib as a dependency
+    implementation(project(":lib"))
+
+    // Add junit build time dependencies.
+    implementation("org.junit.jupiter:junit-jupiter:5.5.2")
+    implementation("org.junit.jupiter:junit-jupiter-params:5.5.2")
+}
