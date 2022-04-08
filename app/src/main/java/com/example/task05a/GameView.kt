@@ -5,7 +5,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
+import androidx.core.view.GestureDetectorCompat
 import com.example.logic.StudentConnect4Game
 
 class GameView: View {
@@ -40,6 +43,33 @@ class GameView: View {
 
     private val colCount:Int get() = game.columns
     private val rowCount:Int get() = game.rows
+
+    private val gestureDetector = GestureDetectorCompat(context, object:
+        GestureDetector.SimpleOnGestureListener() {
+
+        override fun onDown(e: MotionEvent): Boolean {
+            return true
+        }
+
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            val columnTouched = ((e.x - circleSpacing * 0.5f) / (circleSpacing + circleDiameter)).toInt()
+
+            if (columnTouched in 0 until game.columns) {
+                // TODO handle touch
+                game.playToken(columnTouched, 1)
+                invalidate()
+                return true
+            } else {
+                return false
+            }
+
+            return super.onSingleTapUp(e)
+        }
+    })
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
 

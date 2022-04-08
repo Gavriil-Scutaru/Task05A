@@ -38,5 +38,11 @@ class StudentConnect4Game (
      */
     var playerTurn: Int = 1
         private set
+
+//    // Temporary initialization to test onDraw. Needs to be removed later.
+//    init {
+//        data[5][5] = 1
+//        data[6][3] = 2
+//    }
 }
 
